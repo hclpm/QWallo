@@ -3,8 +3,10 @@ __pycache__/
 *.pyc
 work/
 work_*/
+logs_*/
 *.npy
 *.log
 *.done
+*.rc
 *_out/
 .DS_Store
