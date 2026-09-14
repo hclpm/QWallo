@@ -1,0 +1,36 @@
+{
+  "target": "bcr",
+  "holo_structure": "5MO4.cif",
+  "ligand": "AY7",
+  "contact_radius_angstrom": 4.5,
+  "ground_truth_residues": [
+    "A:351",
+    "A:356",
+    "A:359",
+    "A:360",
+    "A:363",
+    "A:448",
+    "A:451",
+    "A:452",
+    "A:453",
+    "A:454",
+    "A:456",
+    "A:481",
+    "A:482",
+    "A:483",
+    "A:484",
+    "A:487",
+    "A:512",
+    "A:521",
+    "A:525",
+    "A:529"
+  ],
+  "metrics": {
+    "residue_count": 290,
+    "positive_count": 20,
+    "random_auprc": 0.06896551724137931,
+    "auprc": 0.8955978885880203,
+    "auroc": 0.99,
+    "hits_at_5": 5
+  }
+}

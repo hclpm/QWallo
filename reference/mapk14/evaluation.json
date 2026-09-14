@@ -1,0 +1,32 @@
+{
+  "target": "mapk14",
+  "holo_structure": "3NEW.cif",
+  "ligand": "3NE",
+  "contact_radius_angstrom": 4.5,
+  "ground_truth_residues": [
+    "A:191",
+    "A:192",
+    "A:195",
+    "A:196",
+    "A:197",
+    "A:242",
+    "A:246",
+    "A:249",
+    "A:250",
+    "A:251",
+    "A:252",
+    "A:255",
+    "A:259",
+    "A:291",
+    "A:293",
+    "A:296"
+  ],
+  "metrics": {
+    "residue_count": 345,
+    "positive_count": 16,
+    "random_auprc": 0.0463768115942029,
+    "auprc": 0.5044335029669108,
+    "auroc": 0.8909574468085106,
+    "hits_at_5": 3
+  }
+}

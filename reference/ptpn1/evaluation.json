@@ -1,0 +1,27 @@
+{
+  "target": "ptpn1",
+  "holo_structure": "1T48.cif",
+  "ligand": "BB3",
+  "contact_radius_angstrom": 4.5,
+  "ground_truth_residues": [
+    "A:189",
+    "A:192",
+    "A:193",
+    "A:196",
+    "A:200",
+    "A:276",
+    "A:277",
+    "A:280",
+    "A:281",
+    "A:291",
+    "A:292"
+  ],
+  "metrics": {
+    "residue_count": 283,
+    "positive_count": 9,
+    "random_auprc": 0.03180212014134275,
+    "auprc": 0.35466904105455854,
+    "auroc": 0.917477696674777,
+    "hits_at_5": 2
+  }
+}

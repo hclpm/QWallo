@@ -1,0 +1,28 @@
+{
+  "target": "myosin",
+  "holo_structure": "9YR7.cif",
+  "ligand": "XB2",
+  "contact_radius_angstrom": 4.5,
+  "ground_truth_residues": [
+    "A:164",
+    "A:167",
+    "A:168",
+    "A:666",
+    "A:710",
+    "A:711",
+    "A:712",
+    "A:713",
+    "A:721",
+    "A:722",
+    "A:770",
+    "A:774"
+  ],
+  "metrics": {
+    "residue_count": 775,
+    "positive_count": 12,
+    "random_auprc": 0.015483870967741935,
+    "auprc": 0.6607702011769332,
+    "auroc": 0.90956749672346,
+    "hits_at_5": 5
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "target": "pdk2",
+  "holo_structure": "2BU2.cif",
+  "ligand": "TF1",
+  "contact_radius_angstrom": 4.5,
+  "ground_truth_residues": [
+    "A:160",
+    "A:163",
+    "A:164",
+    "A:167",
+    "A:23",
+    "A:27",
+    "A:28",
+    "A:31",
+    "A:40",
+    "A:41",
+    "A:44",
+    "A:45"
+  ],
+  "metrics": {
+    "residue_count": 357,
+    "positive_count": 12,
+    "random_auprc": 0.03361344537815126,
+    "auprc": 0.7773813604695957,
+    "auroc": 0.9942028985507246,
+    "hits_at_5": 4
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "target": "ptpn11",
+  "holo_structure": "5EHP.cif",
+  "ligand": "5OA",
+  "contact_radius_angstrom": 4.5,
+  "ground_truth_residues": [
+    "A:108",
+    "A:110",
+    "A:111",
+    "A:113",
+    "A:114",
+    "A:218",
+    "A:219",
+    "A:249",
+    "A:250",
+    "A:253",
+    "A:254",
+    "A:257",
+    "A:489",
+    "A:491",
+    "A:492",
+    "A:495",
+    "A:511"
+  ],
+  "metrics": {
+    "residue_count": 499,
+    "positive_count": 17,
+    "random_auprc": 0.03406813627254509,
+    "auprc": 0.6056387471047353,
+    "auroc": 0.9528313400048816,
+    "hits_at_5": 4
+  }
+}

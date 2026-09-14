@@ -1,0 +1,37 @@
+{
+  "target": "kras",
+  "holo_structure": "6OIM.cif",
+  "ligand": "MOV",
+  "contact_radius_angstrom": 4.5,
+  "ground_truth_residues": [
+    "A:10",
+    "A:100",
+    "A:103",
+    "A:11",
+    "A:12",
+    "A:13",
+    "A:16",
+    "A:34",
+    "A:58",
+    "A:59",
+    "A:60",
+    "A:61",
+    "A:62",
+    "A:63",
+    "A:68",
+    "A:69",
+    "A:72",
+    "A:9",
+    "A:95",
+    "A:96",
+    "A:99"
+  ],
+  "metrics": {
+    "residue_count": 169,
+    "positive_count": 21,
+    "random_auprc": 0.1242603550295858,
+    "auprc": 0.487164900626439,
+    "auroc": 0.7351994851994852,
+    "hits_at_5": 5
+  }
+}
