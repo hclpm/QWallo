@@ -1,6 +1,6 @@
-rank,residue_id,chain_id,residue_number,residue_name,score
-1,A:356,A,356,ALA,2.0
-2,A:359,A,359,LEU,2.0
-3,A:360,A,360,LEU,2.0
-4,A:452,A,452,ALA,2.0
-5,A:487,A,487,VAL,2.0
+rank,residue_id,chain_id,residue_number,residue_name,propagation_score,subset_score
+1,A:452,A,452,ALA,0.925,2.0
+2,A:359,A,359,LEU,0.809524,2.0
+3,A:360,A,360,LEU,0.785714,2.0
+4,A:356,A,356,ALA,0.775,2.0
+5,A:487,A,487,VAL,0.535714,2.0

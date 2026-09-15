@@ -8,7 +8,10 @@
     "symmetry": "symmetric",
     "diagonal": "zero",
     "residue_id": "chain:number, matching the apo structure numbering",
-    "precision": "10 significant digits"
+    "precision": "10 significant digits",
+    "hit_list_selection": "exact fixed-cardinality subset optimisation inside the selected cavity",
+    "hit_list_rank": "descending hop-normalised propagation score; the subset score is equal across the five by construction and cannot order them",
+    "hit_list_ties": "residues with an equal propagation score keep matrix-index order"
   },
   "targets": [
     {
@@ -16,28 +19,32 @@
       "key": "kras",
       "apo": "4OBE",
       "residues": 169,
-      "top_five": "A:60;A:61;A:68;A:96;A:99"
+      "top_five": "A:61;A:60;A:68;A:99;A:96",
+      "selected_unordered": "A:60;A:61;A:68;A:96;A:99"
     },
     {
       "target": "BCR-ABL1",
       "key": "bcr",
       "apo": "1OPL",
       "residues": 290,
-      "top_five": "A:356;A:359;A:360;A:452;A:487"
+      "top_five": "A:452;A:359;A:360;A:356;A:487",
+      "selected_unordered": "A:356;A:359;A:360;A:452;A:487"
     },
     {
       "target": "Cardiac myosin",
       "key": "myosin",
       "apo": "5TBY",
       "residues": 775,
-      "top_five": "A:164;A:168;A:666;A:770;A:774"
+      "top_five": "A:666;A:168;A:164;A:770;A:774",
+      "selected_unordered": "A:164;A:168;A:666;A:770;A:774"
     },
     {
       "target": "c-Myc/Max",
       "key": "cmyc",
       "apo": "1NKP",
       "residues": 171,
-      "top_five": "A:973;A:977;B:275;B:278;B:279"
+      "top_five": "A:973;A:977;B:278;B:275;B:279",
+      "selected_unordered": "A:973;A:977;B:275;B:278;B:279"
     }
   ]
 }

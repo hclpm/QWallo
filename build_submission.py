@@ -20,6 +20,8 @@ from pathlib import Path
 
 import numpy as np
 
+from validation.context import build
+
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "submission"
 TARGETS = [("kras", "KRAS G12C", "4OBE"), ("bcr", "BCR-ABL1", "1OPL"),
@@ -69,16 +71,27 @@ def main():
         if len(hits) != 5:
             raise SystemExit(target + ": the hit list must hold exactly five residues")
         by_id = {rw["matrix_index"]: rw for rw in rows}
+
+        # Selection and ranking answer different questions. The subset optimiser
+        # chooses which five residues go together and gives every member of the
+        # optimal subset the same marginal utility, so it cannot order them. The
+        # rank therefore comes from the propagation score, the same quantity the
+        # pipeline ranks cavities with.
+        ctx = build(target)
+        position = {k: i for i, k in enumerate(ctx["keys"])}
+        scored = sorted(hits, key=lambda h: (-float(ctx["hop"][position[h["residue_id"]]]),
+                                             int(h["matrix_index"])))
         out_rows = []
-        for h in hits:
+        for rank, h in enumerate(scored, start=1):
             rw = by_id[h["matrix_index"]]
-            out_rows.append(dict(rank=h["rank"], residue_id=h["residue_id"],
+            out_rows.append(dict(rank=rank, residue_id=h["residue_id"],
                                  chain_id=rw["chain_id"],
                                  residue_number=rw["residue_number"],
                                  residue_name=rw["residue_name"],
-                                 score=h["score"]))
+                                 propagation_score="%.6g" % ctx["hop"][position[h["residue_id"]]],
+                                 subset_score=h["score"]))
         fields = ["rank", "residue_id", "chain_id", "residue_number",
-                  "residue_name", "score"]
+                  "residue_name", "propagation_score", "subset_score"]
         with open(OUT / "hit_list" / (target + "_hit_list.csv"), "w", newline="") as handle:
             writer = csv.DictWriter(handle, fieldnames=fields)
             writer.writeheader(); writer.writerows(out_rows)
@@ -86,12 +99,13 @@ def main():
             combined.append(dict(target=label, apo_structure=apo, **row))
 
         summary.append(dict(target=label, key=target, apo=apo, residues=len(ids),
-                            top_five=";".join(r["residue_id"] for r in out_rows)))
+                            top_five=";".join(r["residue_id"] for r in out_rows),
+                            selected_unordered=";".join(sorted(h["residue_id"] for h in hits))))
         print("%-7s %-16s %4d residues  top5 %s"
               % (target, label, len(ids), ";".join(r["residue_id"] for r in out_rows)))
 
     fields = ["target", "apo_structure", "rank", "residue_id", "chain_id",
-              "residue_number", "residue_name", "score"]
+              "residue_number", "residue_name", "propagation_score", "subset_score"]
     with open(OUT / "hit_list" / "all_targets_hit_list.csv", "w", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader(); writer.writerows(combined)
@@ -102,7 +116,14 @@ def main():
              convention=dict(value="time-averaged CTQW transfer probability between two residues",
                              symmetry="symmetric", diagonal="zero",
                              residue_id="chain:number, matching the apo structure numbering",
-                             precision="10 significant digits"),
+                             precision="10 significant digits",
+                             hit_list_selection="exact fixed-cardinality subset optimisation "
+                                                "inside the selected cavity",
+                             hit_list_rank="descending hop-normalised propagation score; "
+                                           "the subset score is equal across the five by "
+                                           "construction and cannot order them",
+                             hit_list_ties="residues with an equal propagation score keep "
+                                           "matrix-index order"),
              targets=summary), indent=2) + "\n")
     print("\nbundle:", OUT)
     return 0
