@@ -1,0 +1,6 @@
+rank,residue_id,chain_id,residue_number,residue_name,score
+1,A:164,A,164,TYR,2.0
+2,A:168,A,168,ASP,2.0
+3,A:666,A,666,HIS,2.0
+4,A:770,A,770,LEU,2.0
+5,A:774,A,774,GLU,2.0

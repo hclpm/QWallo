@@ -1,0 +1,43 @@
+{
+  "outputs": {
+    "connectivity_matrix": "N x N per target, labelled on both axes",
+    "hit_list": "top five ranked residues per target"
+  },
+  "convention": {
+    "value": "time-averaged CTQW transfer probability between two residues",
+    "symmetry": "symmetric",
+    "diagonal": "zero",
+    "residue_id": "chain:number, matching the apo structure numbering",
+    "precision": "10 significant digits"
+  },
+  "targets": [
+    {
+      "target": "KRAS G12C",
+      "key": "kras",
+      "apo": "4OBE",
+      "residues": 169,
+      "top_five": "A:60;A:61;A:68;A:96;A:99"
+    },
+    {
+      "target": "BCR-ABL1",
+      "key": "bcr",
+      "apo": "1OPL",
+      "residues": 290,
+      "top_five": "A:356;A:359;A:360;A:452;A:487"
+    },
+    {
+      "target": "Cardiac myosin",
+      "key": "myosin",
+      "apo": "5TBY",
+      "residues": 775,
+      "top_five": "A:164;A:168;A:666;A:770;A:774"
+    },
+    {
+      "target": "c-Myc/Max",
+      "key": "cmyc",
+      "apo": "1NKP",
+      "residues": 171,
+      "top_five": "A:973;A:977;B:275;B:278;B:279"
+    }
+  ]
+}

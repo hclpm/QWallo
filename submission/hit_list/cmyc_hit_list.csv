@@ -1,0 +1,6 @@
+rank,residue_id,chain_id,residue_number,residue_name,score
+1,A:973,A,973,GLN,2.0
+2,A:977,A,977,LYS,2.0
+3,B:275,B,275,GLU,2.0
+4,B:278,B,278,VAL,2.0
+5,B:279,B,279,ARG,2.0

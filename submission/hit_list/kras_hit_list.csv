@@ -1,0 +1,6 @@
+rank,residue_id,chain_id,residue_number,residue_name,score
+1,A:60,A,60,GLY,2.0
+2,A:61,A,61,GLN,2.0
+3,A:68,A,68,ARG,2.0
+4,A:96,A,96,TYR,2.0
+5,A:99,A,99,GLN,2.0
