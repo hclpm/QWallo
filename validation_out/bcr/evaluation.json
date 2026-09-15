@@ -1,0 +1,76 @@
+{
+  "target": "bcr",
+  "contact_cutoff": 7.8,
+  "n_residues": 290,
+  "n_seeds": 21,
+  "n_candidates": 269,
+  "n_truth_total": 20,
+  "n_truth_scored": 20,
+  "launch": [
+    "A:332"
+  ],
+  "tier1": {
+    "n_candidates": 269,
+    "n_positives": 20,
+    "floor": 0.07434944237918216,
+    "ap": 0.8955978885880203,
+    "lift": 12.045791601508872,
+    "auroc": 0.9891566265060241
+  },
+  "tier2": {
+    "n_candidates": 46,
+    "n_positives": 20,
+    "floor": 0.43478260869565216,
+    "ap": 0.9867685144233134,
+    "lift": 2.269567583173621,
+    "auroc": 0.9903846153846154
+  },
+  "matched_controls": {
+    "n_negatives": 26,
+    "n_pockets": 6,
+    "match_tol_used": 0.25,
+    "per_round_pockets": [
+      6,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "n_eligible_centres": 34,
+    "target_burial": 18.7,
+    "target_seed_hop": 3.85,
+    "smd_burial": 0.2602241181974694,
+    "smd_seed_hop": 0.3917960747538341,
+    "evaluable": true
+  },
+  "control_lifts": {
+    "perfect": 2.3000000000000003,
+    "burial": 1.3058384929024465,
+    "neg_seed_dist": 0.9669999999999999
+  },
+  "random_control_lift": 1.1020137806738945,
+  "hits_at_5": 5,
+  "top_five": [
+    "A:356",
+    "A:359",
+    "A:360",
+    "A:452",
+    "A:487"
+  ],
+  "warnings": []
+}

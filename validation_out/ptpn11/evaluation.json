@@ -1,0 +1,78 @@
+{
+  "target": "ptpn11",
+  "contact_cutoff": 7.8,
+  "n_residues": 499,
+  "n_seeds": 9,
+  "n_candidates": 490,
+  "n_truth_total": 17,
+  "n_truth_scored": 17,
+  "launch": [
+    "A:460"
+  ],
+  "tier1": {
+    "n_candidates": 490,
+    "n_positives": 17,
+    "floor": 0.03469387755102041,
+    "ap": 0.6056755554152339,
+    "lift": 17.457707185497917,
+    "auroc": 0.9524934709613232
+  },
+  "tier2": {
+    "n_candidates": 106,
+    "n_positives": 17,
+    "floor": 0.16037735849056603,
+    "ap": 0.9115183254211784,
+    "lift": 5.683584852626171,
+    "auroc": 0.9596827495042961
+  },
+  "matched_controls": {
+    "n_negatives": 89,
+    "n_pockets": 22,
+    "match_tol_used": 0.2,
+    "per_round_pockets": [
+      22,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "n_eligible_centres": 104,
+    "target_burial": 18.41176470588235,
+    "target_seed_hop": 3.588235294117647,
+    "smd_burial": 0.02013602611155734,
+    "smd_seed_hop": 0.16772511690096806,
+    "evaluable": true
+  },
+  "control_lifts": {
+    "perfect": 6.235294117647059,
+    "burial": 1.698606168848771,
+    "neg_seed_dist": 1.2640987862877875
+  },
+  "random_control_lift": 1.1990584510627402,
+  "hits_at_5": 4,
+  "top_five": [
+    "A:111",
+    "A:217",
+    "A:219",
+    "A:257",
+    "A:492"
+  ],
+  "warnings": [
+    "control lift burial = 1.70 exceeds 1.5; tier 2 is not interpretable for this target"
+  ]
+}

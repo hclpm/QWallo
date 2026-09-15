@@ -1,0 +1,22 @@
+target,convention,n_times,tier1_lift,tier2_lift,hits_at_5,top_five
+kras,weighted grid (published),120,5.36,,5,A:60;A:61;A:68;A:96;A:99
+kras,long dense grid,401,5.36,,5,A:60;A:61;A:68;A:96;A:99
+kras,instantaneous t=200,1,5.36,,5,A:60;A:61;A:68;A:96;A:99
+bcr,weighted grid (published),120,12.0458,2.2696,5,A:356;A:359;A:360;A:452;A:487
+bcr,long dense grid,401,12.0773,2.2696,5,A:356;A:359;A:360;A:452;A:487
+bcr,instantaneous t=200,1,12.0773,2.2696,5,A:356;A:359;A:360;A:452;A:487
+myosin,weighted grid (published),120,42.6199,3.534,5,A:164;A:168;A:666;A:770;A:774
+myosin,long dense grid,401,42.6199,3.534,5,A:164;A:168;A:666;A:770;A:774
+myosin,instantaneous t=200,1,42.6199,3.534,5,A:164;A:168;A:666;A:770;A:774
+mapk14,weighted grid (published),120,10.536,2.3203,3,A:192;A:198;A:246;A:291;A:294
+mapk14,long dense grid,401,10.5051,2.3203,3,A:192;A:198;A:246;A:291;A:294
+mapk14,instantaneous t=200,1,10.6333,2.3203,3,A:192;A:198;A:246;A:291;A:294
+ptpn1,weighted grid (published),120,10.8403,3.1225,2,A:79;A:199;A:200;A:236;A:280
+ptpn1,long dense grid,401,10.8403,3.1225,2,A:79;A:199;A:200;A:236;A:280
+ptpn1,instantaneous t=200,1,10.8403,3.1225,2,A:79;A:199;A:200;A:236;A:280
+pdk2,weighted grid (published),120,22.1554,5.7131,4,A:28;A:31;A:36;A:40;A:163
+pdk2,long dense grid,401,22.1554,5.7131,4,A:28;A:31;A:36;A:40;A:163
+pdk2,instantaneous t=200,1,22.1554,5.7131,4,A:28;A:31;A:36;A:40;A:163
+ptpn11,weighted grid (published),120,17.4577,5.6836,4,A:111;A:217;A:219;A:257;A:492
+ptpn11,long dense grid,401,17.377,5.6836,4,A:111;A:217;A:219;A:257;A:492
+ptpn11,instantaneous t=200,1,17.4577,5.6836,4,A:111;A:217;A:219;A:257;A:492

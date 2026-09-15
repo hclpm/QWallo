@@ -1,0 +1,67 @@
+{
+  "target": "kras",
+  "contact_cutoff": 7.8,
+  "n_residues": 169,
+  "n_seeds": 8,
+  "n_candidates": 161,
+  "n_truth_total": 21,
+  "n_truth_scored": 17,
+  "launch": [
+    "A:12"
+  ],
+  "tier1": {
+    "n_candidates": 161,
+    "n_positives": 17,
+    "floor": 0.10559006211180125,
+    "ap": 0.565964690325304,
+    "lift": 5.3600185377867025,
+    "auroc": 0.7986111111111112
+  },
+  "tier2": null,
+  "matched_controls": {
+    "n_negatives": 10,
+    "n_pockets": 2,
+    "match_tol_used": 0.3,
+    "per_round_pockets": [
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "n_eligible_centres": 20,
+    "target_burial": 16.647058823529413,
+    "target_seed_hop": 2.235294117647059,
+    "smd_burial": 0.2242751245164379,
+    "smd_seed_hop": 0.2989740371007744,
+    "evaluable": false
+  },
+  "control_lifts": {},
+  "random_control_lift": null,
+  "hits_at_5": 5,
+  "top_five": [
+    "A:60",
+    "A:61",
+    "A:68",
+    "A:96",
+    "A:99"
+  ],
+  "warnings": [
+    "fewer than 20 matched control residues; tier 2 not evaluable"
+  ]
+}

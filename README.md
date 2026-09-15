@@ -87,6 +87,32 @@ a ranking variant that is not part of this tree, and a full run reaches a
 different selection for them; `method.json` records which ranking rule produced
 each result.
 
+## Report figures
+
+`validate.py` is the quick check above. The figures quoted in the validation
+report come from `validation/`, which scores the same published prediction on a
+narrower scope and adds a matched control:
+
+```bash
+python -m validation.run_validation score all      # two-tier scoring
+python -m validation.run_validation baselines all  # RWR and coined walk
+python -m validation.robustness all                # cutoff, time, pair weight
+```
+
+Tables land in `validation_out/`. Two differences from `validate.py` are
+deliberate. Seeds are the launch points, so they leave the candidate set, and a
+ground-truth residue that coincides with a seed leaves with them — on KRAS that
+is 4 of 21 residues, which is why the two AUPRC floors differ. And tier 2
+replaces the all-residue background with control pockets matched to the true
+site in burial and in graph distance from the seed, so a site cannot score well
+merely for being buried and far away. Control lifts are reported with it; where
+they exceed 1.5 the matched comparison is not interpretable for that target, and
+`scoring.csv` says so in its `warnings` column.
+
+The robustness sweeps hold the cavity and the conformer-ensemble families at
+their published values, so what they test is the residue ranking after cavity
+selection, not the selection.
+
 For a custom domain:
 
 ```bash

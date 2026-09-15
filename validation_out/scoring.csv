@@ -1,0 +1,8 @@
+target,n_residues,n_seeds,n_candidates,n_truth_total,n_truth_scored,tier1_floor,tier1_ap,tier1_lift,auroc,tier2_n_candidates,tier2_lift,hits_at_5,top_five,warnings
+kras,169,8,161,21,17,0.10559,0.565965,5.36,0.7986,,,5,A:60;A:61;A:68;A:96;A:99,fewer than 20 matched control residues; tier 2 not evaluable
+bcr,290,21,269,20,20,0.074349,0.895598,12.046,0.9892,46,2.27,5,A:356;A:359;A:360;A:452;A:487,
+myosin,775,1,774,12,12,0.015504,0.660774,42.62,0.9096,50,3.534,5,A:164;A:168;A:666;A:770;A:774,control lift burial = 2.01 exceeds 1.5; tier 2 is not interpretable for this target | control lift neg_seed_dist = 2.37 exceeds 1.5; tier 2 is not interpretable for this target
+mapk14,345,11,334,16,16,0.047904,0.50472,10.536,0.8904,42,2.32,3,A:192;A:198;A:246;A:291;A:294,
+ptpn1,283,8,275,9,9,0.032727,0.354772,10.84,0.9167,61,3.123,2,A:79;A:199;A:200;A:236;A:280,control lift burial = 1.62 exceeds 1.5; tier 2 is not interpretable for this target
+pdk2,357,15,342,12,12,0.035088,0.777381,22.155,0.9939,69,5.713,4,A:28;A:31;A:36;A:40;A:163,control lift neg_seed_dist = 2.26 exceeds 1.5; tier 2 is not interpretable for this target
+ptpn11,499,9,490,17,17,0.034694,0.605676,17.458,0.9525,106,5.684,4,A:111;A:217;A:219;A:257;A:492,control lift burial = 1.70 exceeds 1.5; tier 2 is not interpretable for this target

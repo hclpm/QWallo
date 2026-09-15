@@ -5,4 +5,5 @@ out_*/
 *.log
 *.done
 *_out/
+!validation_out/
 .DS_Store
