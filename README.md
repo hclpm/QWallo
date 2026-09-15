@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/qwallo_logo.png" alt="QWallo — quantum walks for allostery" width="300">
+  <img src="assets/qwallo_logo.png" alt="QWallo — quantum walks for allostery" width="200">
 </p>
 
 # QWallo
