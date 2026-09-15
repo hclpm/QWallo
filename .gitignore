@@ -1,12 +1,8 @@
 .venv/
 __pycache__/
 *.pyc
-work/
-work_*/
-logs_*/
-*.npy
+out_*/
 *.log
 *.done
-*.rc
 *_out/
 .DS_Store

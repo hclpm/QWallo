@@ -2,149 +2,147 @@
 
 ### Allosteric Site Prediction by Quantum Walk Propagation on Residue Networks
 
-Predict five distal, potentially allosteric residues from an **apo** structure and a
-supplied orthosteric annotation. A continuous-time quantum walk on the residue
-contact network ranks cavities found in an elastic-network conformer ensemble; the
-five residues are then chosen inside the selected cavity by exact enumeration.
+Predict distal, potentially allosteric residues from an apo protein structure and
+a supplied orthosteric annotation. Every target uses one workflow:
 
+```text
+apo structure + orthosteric residues
+  → ENM conformers and fpocket cavities
+  → CTQW pocket selection
+  → lining score + pair term
+  → exact selection of five residues
 ```
-00_structures   apo / holo parsing, input fingerprints
-01_sites        active site (seed, annotation prior) · allosteric site (holo binding-partner contact)
-02_network      C-alpha 7.8 A binary contact graph
-03_propagation  CTQW + hop normalisation            -> connectivity.csv   (submission 1)
-04_pockets      ANM cavity ensemble -> CTQW cavity ranking -> subset enumeration
-                                                     -> hit_list.csv      (submission 2)
-05_evaluation   random background -> matched fake pockets -> hits@5
-06_baselines    RWR restart sweep, coined quantum walk
-07_robustness   contact cutoff, time convention, pair weight
-08_report       summary + reproduction check
-```
+
+Computation runs on a classical CPU. No Qiskit or QPU is required. Prediction
+does not read holo structures or validation labels. Included results are
+retrospective development results, not evidence of generalization or quantum advantage.
 
 ## Install
 
-Python 3.10 or newer.
+Python 3.10 or newer is required. Run commands from this directory:
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -e .
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+brew install fpocket
 ```
 
-`fpocket` is needed only for full cavity discovery in stage 04; put it on `PATH` or
-pass `--fpocket /path/to/fpocket`. Replay needs no external tool.
+The last command is the macOS installation of fpocket. On other systems, install
+fpocket and put it on `PATH`. Only full pocket discovery needs it; replay and
+validation use the included files.
+
+## Validate included results
+
+```bash
+python validate.py all
+```
+
+| Target | Hits@5 | AUPRC |
+|---|---:|---:|
+| KRAS | 5/5 | 0.4872 |
+| BCR-ABL1 | 5/5 | 0.8956 |
+| Myosin | 5/5 | 0.6608 |
+| MAPK14 | 3/5 | 0.5044 |
+| PTPN1 | 2/5 | 0.3547 |
+| PDK2 | 4/5 | 0.7774 |
+| PTPN11 | 4/5 | 0.6056 |
+
+All results use the same lining objective and pair weight 0.1. Validation writes
+`evaluation.json` using heavy-atom contacts within 4.5 Å of the specified holo
+binding partner. Average precision is calculated over all parsed apo residues.
+
+c-Myc has no holo reference structure, so it carries no ground-truth label and is
+not part of `validate.py`. Its prediction is in `results/cmyc/`.
 
 ## Run
 
-### Everything at once
+Recompute the residue QUBO on the included fixed pockets, without fpocket:
 
 ```bash
-./run_all.sh all                 # full prediction (needs fpocket)
-./run_all.sh all --replay        # reuse the published cavity, no fpocket
-./run_all.sh kras                # one target
+python run.py all --replay --out-root out_replay
+python validate.py all --results-root out_replay
 ```
 
-### One stage at a time
-
-Every stage takes a target name or `all`, plus `--work DIR` (default `work/`).
-Each reads only earlier stages' outputs, so a stage can be re-run alone.
-
-| stage | command |
-|---|---|
-| 00 | `python stages/00_structures.py all` |
-| 01 | `python stages/01_sites.py all` |
-| 02 | `python stages/02_network.py all --cutoff 7.8` |
-| 03 | `python stages/03_propagation.py all --time-convention average` |
-| 04 | `python stages/04_pockets.py all` — add `--replay-root reference` to skip discovery |
-| 05 | `python stages/05_evaluation.py all` |
-| 06 | `python stages/06_baselines.py all` |
-| 07 | `python stages/07_robustness.py all` |
-| 08 | `python stages/08_report.py --work work --reference reference` |
+Rebuild the graph and cavity ensemble from the apo structure:
 
 ```bash
-python stages/02_network.py kras --cutoff 5.5
-python stages/03_propagation.py kras --time-convention converged   # or: limit
-python stages/04_pockets.py kras --pair-weight 0.0
-python stages/05_evaluation.py kras --shared-policy positive
+python run.py all --out-root out_full
+python validate.py all --results-root out_full
 ```
 
-`python stages/<file> --help` lists every option. Outputs go to
-`work/<target>/<stage>/`; `work/` is git-ignored.
+Replay writes to a directory other than `results/`, which the predictor requires
+so that a replay cannot overwrite the pocket it is replaying.
 
-## Results
+Replace `all` with any target in the table. Full runs generate 129 ENM snapshots
+per target by default and are substantially slower than replay. Included results
+are fixed-pocket replays, except c-Myc, which comes from full discovery. Full
+discovery recovers the included cavity and the same five residues on KRAS,
+BCR-ABL1, myosin and PDK2. On MAPK14, PTPN1 and PTPN11 the included results carry
+a ranking variant that is not part of this tree, and a full run reaches a
+different selection for them; `method.json` records which ranking rule produced
+each result.
 
-| target | nodes | cavity | AUPRC | random floor | hits@5 |
-|---|---|---|---|---|---|
-| KRAS G12C | 169 | 22 | 0.4872 | 0.1243 | **5/5** |
-| BCR-ABL1 | 290 | 46 | 0.8956 | 0.0690 | **5/5** |
-| Cardiac myosin | 775 | 35 | 0.6608 | 0.0155 | **5/5** |
-| MAPK14 | 345 | 26 | 0.5044 | 0.0464 | 3/5 |
-| PTPN1 | 283 | 23 | 0.3547 | 0.0318 | 2/5 |
-| PDK2 | 357 | 20 | 0.7774 | 0.0336 | 4/5 |
-| PTPN11 | 499 | 63 | 0.6056 | 0.0341 | 4/5 |
+For a custom domain:
 
-**28/35** summed. Ground truth is the holo binding-partner contact set listed in
-`config/targets.py`; changing the holo structure changes the labels.
+```bash
+python predict.py data/kras/4OBE.cif \
+  --chain A --range A:1-169 \
+  --orthosteric A:11 --orthosteric A:12 --orthosteric A:13 \
+  --orthosteric A:14 --orthosteric A:15 --orthosteric A:16 \
+  --orthosteric A:17 --orthosteric A:18 \
+  --out-dir results
+```
 
-## Reproduction
+A domain spanning more than one chain repeats `--chain` and `--range`, one window
+per chain — this is how c-Myc is run:
 
-`stages/08_report.py --reference reference` writes `reproduction.csv`.
+```bash
+python predict.py data/cmyc/1NKP.cif \
+  --chain A --range A:897-984 \
+  --chain B --range B:202-284 \
+  --orthosteric A:898 --orthosteric A:902 ... \
+  --out-dir results/cmyc
+```
 
-| check | result |
+The chains selected this way must not share author residue numbers, because
+cavity membership is stored by number; the predictor checks this and fails rather
+than resolving the collision silently. Insertion codes and isolated nodes at the
+7.8 Å contact cutoff are rejected. `validate.py` evaluates the included presets;
+custom holo inputs require adapting its target registry.
+
+## Targets
+
+| Target | Apo | Domain | Orthosteric surface |
+|---|---|---|---|
+| KRAS G12C | 4OBE | A:1-169 | P-loop |
+| BCR-ABL1 | 1OPL | A:242-533 | ATP site |
+| Cardiac myosin | 5TBY | A:6-780 | nucleotide site |
+| MAPK14 | 1R39 | A:4-351 | ATP site |
+| PTPN1 | 1A5Y | A:2-285 | PTP loop |
+| PDK2 | 2BTZ | A:6-384 | ATP site |
+| PTPN11 | 4DGP | A:3-528 | PTP loop |
+| c-Myc / Max | 1NKP | A:897-984 + B:202-284 | DNA contact face of Myc |
+
+c-Myc is a heterodimer with no catalytic site, so the surface responsible for the
+function being inhibited — the DNA contact face — is used as the orthosteric
+annotation. One copy of the Myc/Max dimer is taken; the DNA chains and the second
+copy in the asymmetric unit are not part of the node set.
+
+## Files and outputs
+
+`run.py` supplies presets, `predict.py` predicts or replays, and `validate.py`
+evaluates. `connectivity/` contains structure parsing, CTQW, ENM, cavity selection,
+and QUBO code. Apo inputs are in `data/`, holo inputs in `validation_data/`.
+
+Results live directly in `results/<target>/`:
+
+| File | Contents |
 |---|---|
-| replay, 7/7 targets, against the published results | identical top-5 and hits; `hit_list.csv`, `residue_scores.csv`, `connectivity.csv` identical byte-for-byte |
-| full cavity discovery, 7/7 targets, against the reference implementation run on the same path | identical cavity, top-5, and ranking rule |
-| `residue_qubo.csv` | differs at most 1.7e-18 (double-precision last bit); selection unaffected |
-
-One caveat belongs to the upstream results rather than to this code. The published
-records for MAPK14, PTPN1 and PDK2 name a `cohesive_subset` ranking step that does
-not exist in the reference source tree, so those three came from a newer version.
-Re-running full discovery without it leaves PTPN1 and PDK2 unchanged but moves
-MAPK14 to a different cavity (Jaccard 0.26), where it scores 0/5 and AUPRC 0.0499
-against a 0.0464 floor. The reference README states that full discovery was
-verified on KRAS only, so this is outside what it claims.
-
-## Evaluation
-
-Three scopes, from weakest to strictest:
-
-1. **random background** — positives against every non-seed residue. Easy to pass:
-   an allosteric site is buried and distant from the active site by definition.
-2. **matched fake pockets** — positives against control pockets whose centres match
-   the true site in burial *and* in hop distance from the seed, as two separate
-   gates. Four control scores run through the same path; if `burial` or
-   `neg_seed_dist` lifts above 1.5, the gate admitted a skewed control set and
-   stage 05 records the scope as not interpretable. That happens on four targets;
-   KRAS yields too few matched controls and is reported as not evaluable.
-3. **hits@5** — the challenge output format.
-
-Seed residues are excluded from scoring throughout.
-
-## Baselines and robustness
-
-Stage 06 runs RWR across restart probabilities and a coined quantum walk on the
-same graph and seeds; stage 07 sweeps the contact cutoff, the time convention and
-the pair weight. Both measure the **residue-level** score with the cavity held
-fixed, so neither tests the CTQW cavity-ranking step that selects the cavity in the
-first place. Numbers are in `06_baselines/baselines.csv` and
-`07_robustness/*.csv`; an operator swap inside cavity ranking is not implemented.
-
-## Limitations
-
-- Cavity selection, not residue ranking, is where the misses occur: on the failing
-  targets the answer residues lie in the protein's cavity set but not in the
-  selected cavity.
-- The `cohesive_subset` step of the published MAPK14, PTPN1 and PDK2 records is not
-  available here.
-- Tier 2 is not interpretable on four of seven targets and not evaluable on one.
-- No hardware stage: circuit compilation, qubit-count reduction and noise analysis
-  are not implemented.
-
-## Layout
-
-```
-config/targets.py   seven target presets: apo, domain, orthosteric prior, holo, partner
-qwallo/             library — structure, propagation, pipeline, anm, pockets, subset,
-                    sites, baselines, evaluation, constants, workspace
-stages/00_..08_     one script per stage
-reference/          published method.json, hit_list.csv, evaluation.json per target
-data/               apo mmCIF     validation_data/  holo mmCIF
-```
+| `connectivity.csv` | N×N CTQW matrix with zero diagonal |
+| `residue_scores.csv` | Residue mapping, optimization score, eligibility |
+| `hit_list.csv` | Selected residues ordered by optimization score |
+| `residue_qubo.csv` | Upper-triangular quadratic objective |
+| `residue_qubo_variables.csv` | QUBO-to-residue mapping and lining percentile |
+| `method.json` | Input hash, parameters, pocket evidence, energy, replay provenance |
+| `evaluation.json` | Separate holo-contact evaluation |

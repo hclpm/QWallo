@@ -1,8 +1,0 @@
-target,replay_top5,full_top5,top5_identical,cavity_replay,cavity_full,cavity_jaccard,ranking_replay,ranking_full
-kras,A:60;A:61;A:68;A:96;A:99,A:60;A:61;A:68;A:96;A:99,1,22,22,1.0,orthosteric_region_hop_ctqw (replayed),orthosteric_region_hop_ctqw
-bcr,A:356;A:359;A:360;A:452;A:487,A:356;A:359;A:360;A:452;A:487,1,46,46,1.0,orthosteric_region_hop_ctqw (replayed),orthosteric_region_hop_ctqw
-myosin,A:164;A:168;A:666;A:770;A:774,A:164;A:168;A:666;A:770;A:774,1,35,35,1.0,orthosteric_region_hop_ctqw (replayed),orthosteric_region_hop_ctqw
-mapk14,A:192;A:198;A:246;A:291;A:294,A:70;A:149;A:189;A:199;A:328,0,26,28,0.256,orthosteric_region_hop_ctqw_mechanical_recurrence_plus_cohesive_subset (replayed),orthosteric_region_hop_ctqw
-ptpn1,A:79;A:199;A:200;A:236;A:280,A:79;A:196;A:199;A:236;A:280,0,23,23,1.0,orthosteric_region_hop_ctqw_plus_cohesive_subset (replayed),orthosteric_region_hop_ctqw
-pdk2,A:28;A:31;A:36;A:40;A:163,A:28;A:31;A:36;A:40;A:163,1,20,20,1.0,orthosteric_region_hop_ctqw_plus_cohesive_subset (replayed),orthosteric_region_hop_ctqw
-ptpn11,A:111;A:217;A:219;A:257;A:492,A:111;A:116;A:218;A:219;A:257,0,63,53,0.841,orthosteric_region_hop_ctqw (replayed),orthosteric_region_hop_ctqw_mechanical_recurrence
