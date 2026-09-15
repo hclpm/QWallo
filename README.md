@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/qwallo_logo.png" alt="QWallo — quantum walks for allostery" width="300">
+</p>
+
 # QWallo
 
 ### Allosteric Site Prediction by Quantum Walk Propagation on Residue Networks
